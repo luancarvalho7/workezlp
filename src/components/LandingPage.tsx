@@ -13,7 +13,7 @@ export function LandingPage({ onStart }: LandingPageProps) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white flex flex-col">
       <div className="relative">
         {/* Main Content */}
         <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 text-center">
