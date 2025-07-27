@@ -1,6 +1,5 @@
 import { RainbowButton } from "./components/ui/rainbow-button"
 import { useEffect, useState } from "react"
-import { cn } from './lib/utils';
 
 function LandingPage({ onContinue, onNoWebsite }: { onContinue: () => void, onNoWebsite: () => void }) {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -438,10 +437,9 @@ function CompanyDetailsPage({ onBack, onContinue }: { onBack: () => void, onCont
             </div>
 
             <div
-              className={cn(
-                "transition-all duration-1000 delay-500",
+              className={`transition-all duration-1000 delay-500 ${
                 isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              )}
+              }`}
             >
               <form onSubmit={handleSubmit} className="space-y-6">
                 <input
@@ -1163,7 +1161,7 @@ function CompetitorsPage({ onBack, onContinue }: { onBack: () => void, onContinu
 }
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<'landing' | 'url' | 'name' | 'email' | 'companyName' | 'revenue' | 'employees' | 'location' | 'industry' | 'businessModel' | 'situation' | 'channels' | 'competitors' | 'loading'>('landing')
+  const [currentPage, setCurrentPage] = useState<'landing' | 'url' | 'name' | 'email' | 'companyName' | 'revenue' | 'employees' | 'location' | 'industry' | 'businessModel' | 'situation' | 'channels' | 'competitors'>('landing')
   const [formData, setFormData] = useState({
     hasWebsite: true,
     companyUrl: '',
@@ -1181,80 +1179,6 @@ export default function App() {
     acquisitionChannels: '',
     competitors: ''
   })
-  
-  // API integration states
-  const [apiData, setApiData] = useState(null)
-  const [isLoadingApiData, setIsLoadingApiData] = useState(false)
-  const [apiError, setApiError] = useState(null)
-  const [websiteUrl, setWebsiteUrl] = useState('')
-  
-  // Fetch enterprise info from API
-  const fetchEnterpriseInfo = async (website: string) => {
-    setIsLoadingApiData(true)
-    setApiError(null)
-    
-    try {
-      const response = await fetch('https://apivftomc-n8n-test-videos.aacepg.easypanel.host/webhook/getEnterpriseInfo', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ website }),
-      })
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      
-      const data = await response.json()
-      console.log('API Response:', data)
-      
-      if (data && data.length > 0) {
-        setApiData(data[0]) // Take the first item from the array
-      } else {
-        throw new Error('No data received from API')
-      }
-    } catch (error: any) {
-      console.error('Error fetching enterprise info:', error)
-      setApiError(error.message)
-    } finally {
-      setIsLoadingApiData(false)
-    }
-  }
-
-  // Auto-advance after API call completes
-  useEffect(() => {
-    if (!isLoadingApiData && currentPage === 'loading' && (apiData || apiError)) {
-      // Wait a moment then advance to next page
-      setTimeout(() => {
-        setCurrentPage('companyName')
-      }, 1000)
-    }
-  }, [isLoadingApiData, apiData, apiError, currentPage])
-
-  // Helper functions to get initial values from API data
-  const getInitialCompanyName = () => apiData?.name || ''
-  const getInitialRevenue = () => apiData?.month_revenue || ''
-  const getInitialDescription = () => apiData?.current_situation || ''
-  const getInitialEmployeeCount = () => {
-    if (!apiData?.employee_count) return ''
-    const count = apiData.employee_count
-    if (count === 1) return 'Just Me'
-    if (count <= 10) return '1-10'
-    if (count <= 60) return '10-60'
-    if (count <= 200) return '60-200'
-    return '200+'
-  }
-  const getInitialLocation = () => ({
-    city: apiData?.city || '',
-    state: apiData?.state_ac || '',
-    country: apiData?.country || ''
-  })
-  const getInitialIndustry = () => apiData?.industry ? apiData.industry.join(', ') : ''
-  const getInitialBusinessModel = () => apiData?.business_model?.[0] || ''
-  const getInitialChannels = () => apiData?.['Acquisition Channels'] || []
-  const getInitialCompetitors = () => apiData?.Competitors ? 
-    apiData.Competitors.map((comp: any) => comp.name).join(', ') : ''
 
   const handleLandingContinue = () => {
     setFormData(prev => ({ ...prev, hasWebsite: true }))
@@ -1268,9 +1192,7 @@ export default function App() {
 
   const handleUrlContinue = (url: string) => {
     setFormData(prev => ({ ...prev, companyUrl: url }))
-    setWebsiteUrl(url)
-    fetchEnterpriseInfo(url)
-    setCurrentPage('loading')
+    setCurrentPage('name')
   }
 
   const handleNameContinue = (name: string) => {
@@ -1353,51 +1275,7 @@ export default function App() {
     }
     
     console.log('Final processed data:', processedData)
-    console.log('API Data:', apiData)
     // Here you would typically submit the form or proceed to the audit results
-  }
-
-  // Loading page while waiting for API response
-  if (currentPage === 'loading') {
-    return (
-      <div className="min-h-screen bg-black text-white flex flex-col">
-        <div className="flex-1 flex items-center justify-center px-4">
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="mb-8">
-              <div className="h-16 w-16 mx-auto mb-6 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">Analyzing your website...</h2>
-              <p className="text-gray-400 text-lg">
-                {isLoadingApiData ? 'We\'re gathering information about your company' : 
-                 apiError ? 'Something went wrong, but you can continue manually' :
-                 'Analysis complete! Preparing your personalized form...'}
-              </p>
-            </div>
-            
-            {apiError && (
-              <div className="space-y-6">
-                <div className="bg-red-900/20 border border-red-500/30 rounded-xl p-4">
-                  <p className="text-red-400 text-sm">Error: {apiError}</p>
-                </div>
-                <div className="flex gap-4 justify-center">
-                  <button 
-                    onClick={() => fetchEnterpriseInfo(websiteUrl)}
-                    className="border border-gray-600 text-gray-300 hover:bg-gray-800 px-6 py-2 rounded"
-                  >
-                    Retry
-                  </button>
-                  <button 
-                    onClick={() => setCurrentPage('companyName')}
-                    className="bg-blue-600 hover:bg-blue-700 px-8 py-2 rounded"
-                  >
-                    Continue Manually
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    )
   }
 
   return (
