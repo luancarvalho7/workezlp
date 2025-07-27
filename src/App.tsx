@@ -1,5 +1,6 @@
 import { RainbowButton } from "./components/ui/rainbow-button"
 import { useEffect, useState } from "react"
+import { cn } from './lib/utils';
 
 function LandingPage({ onContinue, onNoWebsite }: { onContinue: () => void, onNoWebsite: () => void }) {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -437,9 +438,10 @@ function CompanyDetailsPage({ onBack, onContinue }: { onBack: () => void, onCont
             </div>
 
             <div
-              className={`transition-all duration-1000 delay-500 ${
+              className={cn(
+                "transition-all duration-1000 delay-500",
                 isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
+              )}
             >
               <form onSubmit={handleSubmit} className="space-y-6">
                 <input
@@ -1131,7 +1133,7 @@ function CompetitorsPage({ onBack, onContinue }: { onBack: () => void, onContinu
             </div>
 
             <div
-              className={\`transition-all duration-1000 delay-500 ${
+              className={`transition-all duration-1000 delay-500 ${
                 isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
             >
@@ -1201,7 +1203,7 @@ export default function App() {
       })
       
       if (!response.ok) {
-        throw new Error(\`HTTP error! status: ${response.status}`)
+        throw new Error(`HTTP error! status: ${response.status}`)
       }
       
       const data = await response.json()
@@ -1339,14 +1341,14 @@ export default function App() {
       business_model: finalData.businessModel.split(',').map(b => b.trim()).filter(b => b),
       current_situation: finalData.currentSituation,
       "Social Media": {
-        "Twitter": \`https://twitter.com/${finalData.companyName.replace(/\s+/g, '')}`,
-        "Facebook": \`https://www.facebook.com/${finalData.companyName.replace(/\s+/g, '')}`,
-        "LinkedIn": \`https://www.linkedin.com/company/${finalData.companyName.toLowerCase().replace(/\s+/g, '-')}`
+        "Twitter": `https://twitter.com/${finalData.companyName.replace(/\s+/g, '')}`,
+        "Facebook": `https://www.facebook.com/${finalData.companyName.replace(/\s+/g, '')}`,
+        "LinkedIn": `https://www.linkedin.com/company/${finalData.companyName.toLowerCase().replace(/\s+/g, '-')}`
       },
       "Acquisition Channels": finalData.acquisitionChannels.split(',').map(a => a.trim()).filter(a => a),
       "Competitors": competitors.split(',').map(c => c.trim()).filter(c => c).map(comp => ({
         name: comp,
-        website: \`https://www.${comp.toLowerCase().replace(/\s+/g, '')}.com`
+        website: `https://www.${comp.toLowerCase().replace(/\s+/g, '')}.com`
       }))
     }
     
