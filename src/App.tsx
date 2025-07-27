@@ -1185,9 +1185,9 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col">
+    <>
       {currentPage === 'landing' && (
-        <LandingPage onStart={() => setCurrentPage('website')} />
+        <LandingPage onStart={handleLandingContinue} />
       )}
       {currentPage === 'url' && (
         <WebsiteUrlPage 
@@ -1261,6 +1261,6 @@ export default function App() {
           onContinue={handleCompetitorsContinue}
         />
       )}
-    </div>
+    </>
   )
 }
