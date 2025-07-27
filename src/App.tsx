@@ -1,1363 +1,274 @@
-import { RainbowButton } from "./components/ui/rainbow-button"
-import { useEffect, useState } from "react"
-
-function LandingPage({ onContinue, onNoWebsite }: { onContinue: () => void, onNoWebsite: () => void }) {
-  const [isLoaded, setIsLoaded] = useState(false)
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
-
-  return (
-    <div className="min-h-screen relative overflow-hidden bg-black dark">
-      {/* Animated Background Pattern */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
-        
-        {/* Floating Orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
-        </div>
-        
-        {/* Animated Lines */}
-        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 800">
-          <defs>
-            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="rgba(168,85,247,0)" />
-              <stop offset="50%" stopColor="rgba(168,85,247,0.3)" />
-              <stop offset="100%" stopColor="rgba(168,85,247,0)" />
-            </linearGradient>
-          </defs>
-
-          <path
-            d="M0 300 Q300 250 600 300 T1200 300"
-            stroke="url(#lineGradient)"
-            strokeWidth="1"
-            fill="none"
-            className="animate-pulse"
-          />
-          <path
-            d="M0 500 Q300 450 600 500 T1200 500"
-            stroke="url(#lineGradient)"
-            strokeWidth="1"
-            fill="none"
-            className="animate-pulse delay-500"
-          />
-        </svg>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Main Content */}
-        <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 text-center">
-          <div className="max-w-6xl mx-auto">
-            {/* Main Heading */}
-            <div className="space-y-4">
-              <div
-                className={`transition-all duration-1000 delay-300 ${
-                  isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-              >
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light leading-[0.9] tracking-tight text-white max-w-[1000px] mx-auto px-4">
-                  The 5 Minute{" "}{" "}
-                  <span className="bg-gradient-to-b from-yellow-300 via-yellow-400 to-amber-500 bg-clip-text text-transparent font-cormorant italic scale-[1.3] inline-block mx-8">
-                    AI Growth
-                  </span>{" "}{" "}
-                  Audit
-                  <br />
-                  <span className="scale-[0.83] inline-block">That See What Works, What Fails</span>
-                  <br />
-                  <span className="scale-[0.83] inline-block">What to Do Next</span>
-                </h1>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div
-              className={`mt-12 sm:mt-16 max-w-sm sm:max-w-md mx-auto px-4 transition-all duration-1000 delay-500 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <RainbowButton 
-                onClick={onContinue}
-                className="w-full h-12 text-base sm:text-lg font-semibold"
-              >
-                Start
-              </RainbowButton>
-            </div>
-          </div>
-        </main>
-      </div>
-    </div>
-  )
-}
-
-function WebsiteUrlPage({ onBack, onContinue }: { onBack: () => void, onContinue: (url: string) => void }) {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [companyUrl, setCompanyUrl] = useState("")
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (companyUrl.trim()) {
-      onContinue(companyUrl)
-    }
-  }
-
-  return (
-    <div className="min-h-screen relative overflow-hidden bg-black dark">
-      {/* Background (same as landing page) */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
-        </div>
-        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 800">
-          <defs>
-            <linearGradient id="lineGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="rgba(168,85,247,0)" />
-              <stop offset="50%" stopColor="rgba(168,85,247,0.3)" />
-              <stop offset="100%" stopColor="rgba(168,85,247,0)" />
-            </linearGradient>
-          </defs>
-          <path d="M0 300 Q300 250 600 300 T1200 300" stroke="url(#lineGradient2)" strokeWidth="1" fill="none" className="animate-pulse" />
-          <path d="M0 500 Q300 450 600 500 T1200 500" stroke="url(#lineGradient2)" strokeWidth="1" fill="none" className="animate-pulse delay-500" />
-        </svg>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Back Button */}
-        <div className="absolute top-6 left-4 sm:left-6">
-          <button
-            onClick={onBack}
-            className="text-white hover:text-purple-300 transition-all duration-300 px-4 py-2"
-          >
-            ← Back
-          </button>
-        </div>
-
-        {/* Main Content */}
-        <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 text-center">
-          <div className="max-w-md mx-auto w-full">
-            <div
-              className={`transition-all duration-1000 delay-300 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-white mb-4">
-                What's your website URL?
-              </h1>
-              <p className="text-white/60 text-sm sm:text-base mb-8">
-                Enter your company website so we can analyze it
-              </p>
-            </div>
-
-            <div
-              className={`transition-all duration-1000 delay-500 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <input
-                  type="url"
-                  placeholder="https://your-website.com"
-                  value={companyUrl}
-                  onChange={(e) => setCompanyUrl(e.target.value)}
-                  className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300 text-sm sm:text-base"
-                  required
-                />
-                
-                <RainbowButton 
-                  type="submit"
-                  className="w-full h-12 text-base sm:text-lg font-semibold"
-                >
-                  Continue
-                </RainbowButton>
-              </form>
-            </div>
-          </div>
-        </main>
-      </div>
-    </div>
-  )
-}
-
-function NamePage({ onBack, onContinue }: { onBack: () => void, onContinue: (name: string) => void }) {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [name, setName] = useState("")
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (name.trim()) {
-      onContinue(name)
-    }
-  }
-
-  return (
-    <div className="min-h-screen relative overflow-hidden bg-black dark">
-      {/* Background (same as other pages) */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
-        </div>
-        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 800">
-          <defs>
-            <linearGradient id="lineGradient3" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="rgba(168,85,247,0)" />
-              <stop offset="50%" stopColor="rgba(168,85,247,0.3)" />
-              <stop offset="100%" stopColor="rgba(168,85,247,0)" />
-            </linearGradient>
-          </defs>
-          <path d="M0 300 Q300 250 600 300 T1200 300" stroke="url(#lineGradient3)" strokeWidth="1" fill="none" className="animate-pulse" />
-          <path d="M0 500 Q300 450 600 500 T1200 500" stroke="url(#lineGradient3)" strokeWidth="1" fill="none" className="animate-pulse delay-500" />
-        </svg>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Back Button */}
-        <div className="absolute top-6 left-4 sm:left-6">
-          <button
-            onClick={onBack}
-            className="text-white hover:text-purple-300 transition-all duration-300 px-4 py-2"
-          >
-            ← Back
-          </button>
-        </div>
-
-        {/* Main Content */}
-        <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 text-center">
-          <div className="max-w-md mx-auto w-full">
-            <div
-              className={`transition-all duration-1000 delay-300 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-white mb-4">
-                What's your name?
-              </h1>
-              <p className="text-white/60 text-sm sm:text-base mb-8">
-                We'll personalize your audit results
-              </p>
-            </div>
-
-            <div
-              className={`transition-all duration-1000 delay-500 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <input
-                  type="text"
-                  placeholder="Enter your full name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300 text-sm sm:text-base"
-                  required
-                />
-                
-                <RainbowButton 
-                  type="submit"
-                  className="w-full h-12 text-base sm:text-lg font-semibold"
-                >
-                  Continue
-                </RainbowButton>
-              </form>
-            </div>
-          </div>
-        </main>
-      </div>
-    </div>
-  )
-}
-
-function EmailPage({ onBack, onContinue }: { onBack: () => void, onContinue: (email: string) => void }) {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [email, setEmail] = useState("")
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (email.trim()) {
-      onContinue(email)
-    }
-  }
-
-  return (
-    <div className="min-h-screen relative overflow-hidden bg-black dark">
-      {/* Background (same as other pages) */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
-        </div>
-        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 800">
-          <defs>
-            <linearGradient id="lineGradient4" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="rgba(168,85,247,0)" />
-              <stop offset="50%" stopColor="rgba(168,85,247,0.3)" />
-              <stop offset="100%" stopColor="rgba(168,85,247,0)" />
-            </linearGradient>
-          </defs>
-          <path d="M0 300 Q300 250 600 300 T1200 300" stroke="url(#lineGradient4)" strokeWidth="1" fill="none" className="animate-pulse" />
-          <path d="M0 500 Q300 450 600 500 T1200 500" stroke="url(#lineGradient4)" strokeWidth="1" fill="none" className="animate-pulse delay-500" />
-        </svg>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Back Button */}
-        <div className="absolute top-6 left-4 sm:left-6">
-          <button
-            onClick={onBack}
-            className="text-white hover:text-purple-300 transition-all duration-300 px-4 py-2"
-          >
-            ← Back
-          </button>
-        </div>
-
-        {/* Main Content */}
-        <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 text-center">
-          <div className="max-w-md mx-auto w-full">
-            <div
-              className={`transition-all duration-1000 delay-300 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-white mb-4">
-                What's your email address?
-              </h1>
-              <p className="text-white/60 text-sm sm:text-base mb-8">
-                We'll send your personalized audit results here
-              </p>
-            </div>
-
-            <div
-              className={`transition-all duration-1000 delay-500 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300 text-sm sm:text-base"
-                  required
-                />
-                
-                <RainbowButton 
-                  type="submit"
-                  className="w-full h-12 text-base sm:text-lg font-semibold"
-                >
-                  Continue
-                </RainbowButton>
-              </form>
-            </div>
-          </div>
-        </main>
-      </div>
-    </div>
-  )
-}
-
-function CompanyDetailsPage({ onBack, onContinue }: { onBack: () => void, onContinue: (data: any) => void }) {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [companyName, setCompanyName] = useState('')
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (companyName.trim()) {
-      onContinue(companyName)
-    }
-  }
-
-  return (
-    <div className="min-h-screen relative overflow-hidden bg-black dark">
-      {/* Background */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Back Button */}
-        <div className="absolute top-6 left-4 sm:left-6">
-          <button
-            onClick={onBack}
-            className="text-white hover:text-purple-300 transition-all duration-300 px-4 py-2"
-          >
-            ← Back
-          </button>
-        </div>
-
-        {/* Main Content */}
-        <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 py-12">
-          <div className="max-w-2xl mx-auto w-full">
-            <div
-              className={`text-center mb-8 transition-all duration-1000 delay-300 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-white mb-4">
-                What's your company name?
-              </h1>
-            </div>
-
-            <div
-              className={`transition-all duration-1000 delay-500 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <input
-                  type="text"
-                  placeholder="Enter your company name"
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
-                  required
-                />
-                
-                <RainbowButton 
-                  type="submit"
-                  className="w-full h-12 text-base sm:text-lg font-semibold"
-                >
-                  Continue
-                </RainbowButton>
-              </form>
-            </div>
-          </div>
-        </main>
-      </div>
-    </div>
-  )
-}
-
-function MonthlyRevenuePage({ onBack, onContinue }: { onBack: () => void, onContinue: (revenue: string) => void }) {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [monthlyRevenue, setMonthlyRevenue] = useState('')
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (monthlyRevenue.trim()) {
-      onContinue(monthlyRevenue)
-    }
-  }
-
-  return (
-    <div className="min-h-screen relative overflow-hidden bg-black dark">
-      {/* Background */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Back Button */}
-        <div className="absolute top-6 left-4 sm:left-6">
-          <button
-            onClick={onBack}
-            className="text-white hover:text-purple-300 transition-all duration-300 px-4 py-2"
-          >
-            ← Back
-          </button>
-        </div>
-
-        {/* Main Content */}
-        <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 text-center">
-          <div className="max-w-md mx-auto w-full">
-            <div
-              className={`transition-all duration-1000 delay-300 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-white mb-4">
-                What's your monthly revenue?
-              </h1>
-              <p className="text-white/60 text-sm sm:text-base mb-8">
-                Enter your approximate monthly revenue in USD
-              </p>
-            </div>
-
-            <div
-              className={`transition-all duration-1000 delay-500 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <input
-                  type="number"
-                  placeholder="150000000"
-                  value={monthlyRevenue}
-                  onChange={(e) => setMonthlyRevenue(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
-                  required
-                />
-                
-                <RainbowButton 
-                  type="submit"
-                  className="w-full h-12 text-base sm:text-lg font-semibold"
-                >
-                  Continue
-                </RainbowButton>
-              </form>
-            </div>
-          </div>
-        </main>
-      </div>
-    </div>
-  )
-}
-
-function EmployeeCountPage({ onBack, onContinue }: { onBack: () => void, onContinue: (count: string) => void }) {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [employeeCount, setEmployeeCount] = useState('')
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (employeeCount.trim()) {
-      onContinue(employeeCount)
-    }
-  }
-
-  return (
-    <div className="min-h-screen relative overflow-hidden bg-black dark">
-      {/* Background */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Back Button */}
-        <div className="absolute top-6 left-4 sm:left-6">
-          <button
-            onClick={onBack}
-            className="text-white hover:text-purple-300 transition-all duration-300 px-4 py-2"
-          >
-            ← Back
-          </button>
-        </div>
-
-        {/* Main Content */}
-        <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 text-center">
-          <div className="max-w-md mx-auto w-full">
-            <div
-              className={`transition-all duration-1000 delay-300 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-white mb-4">
-                How many employees do you have?
-              </h1>
-            </div>
-
-            <div
-              className={`transition-all duration-1000 delay-500 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <input
-                  type="number"
-                  placeholder="1957"
-                  value={employeeCount}
-                  onChange={(e) => setEmployeeCount(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
-                  required
-                />
-                
-                <RainbowButton 
-                  type="submit"
-                  className="w-full h-12 text-base sm:text-lg font-semibold"
-                >
-                  Continue
-                </RainbowButton>
-              </form>
-            </div>
-          </div>
-        </main>
-      </div>
-    </div>
-  )
-}
-
-function LocationPage({ onBack, onContinue }: { onBack: () => void, onContinue: (location: { country: string, state: string, city: string }) => void }) {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [country, setCountry] = useState('')
-  const [state, setState] = useState('')
-  const [city, setCity] = useState('')
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (country.trim() && state.trim() && city.trim()) {
-      onContinue({ country, state, city })
-    }
-  }
-
-  return (
-    <div className="min-h-screen relative overflow-hidden bg-black dark">
-      {/* Background */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Back Button */}
-        <div className="absolute top-6 left-4 sm:left-6">
-          <button
-            onClick={onBack}
-            className="text-white hover:text-purple-300 transition-all duration-300 px-4 py-2"
-          >
-            ← Back
-          </button>
-        </div>
-
-        {/* Main Content */}
-        <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 text-center">
-          <div className="max-w-md mx-auto w-full">
-            <div
-              className={`transition-all duration-1000 delay-300 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-white mb-4">
-                Where is your company located?
-              </h1>
-            </div>
-
-            <div
-              className={`transition-all duration-1000 delay-500 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <input
-                  type="text"
-                  placeholder="Country (e.g., United States)"
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
-                  required
-                />
-                
-                <input
-                  type="text"
-                  placeholder="State/Province (e.g., MA)"
-                  value={state}
-                  onChange={(e) => setState(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
-                  required
-                />
-                
-                <input
-                  type="text"
-                  placeholder="City (e.g., Quincy)"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
-                  required
-                />
-                
-                <RainbowButton 
-                  type="submit"
-                  className="w-full h-12 text-base sm:text-lg font-semibold"
-                >
-                  Continue
-                </RainbowButton>
-              </form>
-            </div>
-          </div>
-        </main>
-      </div>
-    </div>
-  )
-}
-
-function IndustryPage({ onBack, onContinue }: { onBack: () => void, onContinue: (industry: string) => void }) {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [industry, setIndustry] = useState('')
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (industry.trim()) {
-      onContinue(industry)
-    }
-  }
-
-  return (
-    <div className="min-h-screen relative overflow-hidden bg-black dark">
-      {/* Background */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Back Button */}
-        <div className="absolute top-6 left-4 sm:left-6">
-          <button
-            onClick={onBack}
-            className="text-white hover:text-purple-300 transition-all duration-300 px-4 py-2"
-          >
-            ← Back
-          </button>
-        </div>
-
-        {/* Main Content */}
-        <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 text-center">
-          <div className="max-w-md mx-auto w-full">
-            <div
-              className={`transition-all duration-1000 delay-300 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-white mb-4">
-                What industry are you in?
-              </h1>
-              <p className="text-white/60 text-sm sm:text-base mb-8">
-                Separate multiple industries with commas
-              </p>
-            </div>
-
-            <div
-              className={`transition-all duration-1000 delay-500 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <input
-                  type="text"
-                  placeholder="Telecommunications"
-                  value={industry}
-                  onChange={(e) => setIndustry(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
-                  required
-                />
-                
-                <RainbowButton 
-                  type="submit"
-                  className="w-full h-12 text-base sm:text-lg font-semibold"
-                >
-                  Continue
-                </RainbowButton>
-              </form>
-            </div>
-          </div>
-        </main>
-      </div>
-    </div>
-  )
-}
-
-function BusinessModelPage({ onBack, onContinue }: { onBack: () => void, onContinue: (model: string) => void }) {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [businessModel, setBusinessModel] = useState('')
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (businessModel.trim()) {
-      onContinue(businessModel)
-    }
-  }
-
-  return (
-    <div className="min-h-screen relative overflow-hidden bg-black dark">
-      {/* Background */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Back Button */}
-        <div className="absolute top-6 left-4 sm:left-6">
-          <button
-            onClick={onBack}
-            className="text-white hover:text-purple-300 transition-all duration-300 px-4 py-2"
-          >
-            ← Back
-          </button>
-        </div>
-
-        {/* Main Content */}
-        <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 text-center">
-          <div className="max-w-md mx-auto w-full">
-            <div
-              className={`transition-all duration-1000 delay-300 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-white mb-4">
-                What's your business model?
-              </h1>
-              <p className="text-white/60 text-sm sm:text-base mb-8">
-                e.g., B2B, B2C, B2B2C (separate multiple with commas)
-              </p>
-            </div>
-
-            <div
-              className={`transition-all duration-1000 delay-500 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <input
-                  type="text"
-                  placeholder="B2B"
-                  value={businessModel}
-                  onChange={(e) => setBusinessModel(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
-                  required
-                />
-                
-                <RainbowButton 
-                  type="submit"
-                  className="w-full h-12 text-base sm:text-lg font-semibold"
-                >
-                  Continue
-                </RainbowButton>
-              </form>
-            </div>
-          </div>
-        </main>
-      </div>
-    </div>
-  )
-}
-
-function CurrentSituationPage({ onBack, onContinue }: { onBack: () => void, onContinue: (situation: string) => void }) {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [currentSituation, setCurrentSituation] = useState('')
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (currentSituation.trim()) {
-      onContinue(currentSituation)
-    }
-  }
-
-  return (
-    <div className="min-h-screen relative overflow-hidden bg-black dark">
-      {/* Background */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Back Button */}
-        <div className="absolute top-6 left-4 sm:left-6">
-          <button
-            onClick={onBack}
-            className="text-white hover:text-purple-300 transition-all duration-300 px-4 py-2"
-          >
-            ← Back
-          </button>
-        </div>
-
-        {/* Main Content */}
-        <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 text-center">
-          <div className="max-w-md mx-auto w-full">
-            <div
-              className={`transition-all duration-1000 delay-300 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-white mb-4">
-                Describe your current situation
-              </h1>
-              <p className="text-white/60 text-sm sm:text-base mb-8">
-                Brief description of your company and what you do
-              </p>
-            </div>
-
-            <div
-              className={`transition-all duration-1000 delay-500 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <textarea
-                  placeholder="We are a leading provider of advanced communications and technology solutions..."
-                  value={currentSituation}
-                  onChange={(e) => setCurrentSituation(e.target.value)}
-                  rows={6}
-                  className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300 resize-none"
-                  required
-                />
-                
-                <RainbowButton 
-                  type="submit"
-                  className="w-full h-12 text-base sm:text-lg font-semibold"
-                >
-                  Continue
-                </RainbowButton>
-              </form>
-            </div>
-          </div>
-        </main>
-      </div>
-    </div>
-  )
-}
-
-function AcquisitionChannelsPage({ onBack, onContinue }: { onBack: () => void, onContinue: (channels: string) => void }) {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [acquisitionChannels, setAcquisitionChannels] = useState('')
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (acquisitionChannels.trim()) {
-      onContinue(acquisitionChannels)
-    }
-  }
-
-  return (
-    <div className="min-h-screen relative overflow-hidden bg-black dark">
-      {/* Background */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Back Button */}
-        <div className="absolute top-6 left-4 sm:left-6">
-          <button
-            onClick={onBack}
-            className="text-white hover:text-purple-300 transition-all duration-300 px-4 py-2"
-          >
-            ← Back
-          </button>
-        </div>
-
-        {/* Main Content */}
-        <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 text-center">
-          <div className="max-w-md mx-auto w-full">
-            <div
-              className={`transition-all duration-1000 delay-300 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-white mb-4">
-                What are your acquisition channels?
-              </h1>
-              <p className="text-white/60 text-sm sm:text-base mb-8">
-                How do you currently acquire customers? (separate with commas)
-              </p>
-            </div>
-
-            <div
-              className={`transition-all duration-1000 delay-500 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <input
-                  type="text"
-                  placeholder="Direct Sales, Channel Partners, Online Marketing"
-                  value={acquisitionChannels}
-                  onChange={(e) => setAcquisitionChannels(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
-                  required
-                />
-                
-                <RainbowButton 
-                  type="submit"
-                  className="w-full h-12 text-base sm:text-lg font-semibold"
-                >
-                  Continue
-                </RainbowButton>
-              </form>
-            </div>
-          </div>
-        </main>
-      </div>
-    </div>
-  )
-}
-
-function CompetitorsPage({ onBack, onContinue }: { onBack: () => void, onContinue: (competitors: string) => void }) {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [competitors, setCompetitors] = useState('')
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (competitors.trim()) {
-      onContinue(competitors)
-    }
-  }
-
-  return (
-    <div className="min-h-screen relative overflow-hidden bg-black dark">
-      {/* Background */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Back Button */}
-        <div className="absolute top-6 left-4 sm:left-6">
-          <button
-            onClick={onBack}
-            className="text-white hover:text-purple-300 transition-all duration-300 px-4 py-2"
-          >
-            ← Back
-          </button>
-        </div>
-
-        {/* Main Content */}
-        <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 text-center">
-          <div className="max-w-md mx-auto w-full">
-            <div
-              className={`transition-all duration-1000 delay-300 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-white mb-4">
-                Who are your main competitors?
-              </h1>
-              <p className="text-white/60 text-sm sm:text-base mb-8">
-                List your top competitors (separate with commas)
-              </p>
-            </div>
-
-            <div
-              className={`transition-all duration-1000 delay-500 ${
-                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <input
-                  type="text"
-                  placeholder="BullsEye Telecom, EarthLink, Consolidated Communications"
-                  value={competitors}
-                  onChange={(e) => setCompetitors(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
-                  required
-                />
-                
-                <RainbowButton 
-                  type="submit"
-                  className="w-full h-12 text-base sm:text-lg font-semibold"
-                >
-                  Start My Audit
-                </RainbowButton>
-              </form>
-            </div>
-          </div>
-        </main>
-      </div>
-    </div>
-  )
-}
-
-export default function App() {
-  const [currentPage, setCurrentPage] = useState<'landing' | 'url' | 'name' | 'email' | 'companyName' | 'revenue' | 'employees' | 'location' | 'industry' | 'businessModel' | 'situation' | 'channels' | 'competitors'>('landing')
-  const [formData, setFormData] = useState({
-    hasWebsite: true,
-    companyUrl: '',
-    name: '',
-    email: '',
-    companyName: '',
-    monthlyRevenue: '',
-    employeeCount: '',
-    country: '',
-    state: '',
+import React, { useState } from 'react';
+import { LandingPage } from './components/pages/LandingPage';
+import { WebsitePage } from './components/pages/WebsitePage';
+import { NamePage } from './components/pages/NamePage';
+import { EmailPage } from './components/pages/EmailPage';
+import { CompanyNamePage } from './components/pages/CompanyNamePage';
+import { MonthlyRevenuePage } from './components/pages/MonthlyRevenuePage';
+import { CompanyDescriptionPage } from './components/pages/CompanyDescriptionPage';
+import { EmployeeCountPage } from './components/pages/EmployeeCountPage';
+import { LocationPage } from './components/pages/LocationPage';
+import { IndustryPage } from './components/pages/IndustryPage';
+import { BusinessModelPage } from './components/pages/BusinessModelPage';
+import { AcquisitionChannelsPage } from './components/pages/AcquisitionChannelsPage';
+import { CompetitorsPage } from './components/pages/CompetitorsPage';
+
+function App() {
+  const [currentPage, setCurrentPage] = useState('landing');
+  const [responses, setResponses] = useState([]);
+  const [currentInput, setCurrentInput] = useState('');
+  const [currency, setCurrency] = useState('USD');
+  const [selectedEmployees, setSelectedEmployees] = useState('');
+  const [selectedBusinessModel, setSelectedBusinessModel] = useState('');
+  const [selectedChannels, setSelectedChannels] = useState([]);
+  const [locationInputs, setLocationInputs] = useState({
     city: '',
-    industry: '',
-    businessModel: '',
-    currentSituation: '',
-    acquisitionChannels: '',
-    competitors: ''
-  })
+    state: '',
+    country: ''
+  });
 
-  const handleLandingContinue = () => {
-    setFormData(prev => ({ ...prev, hasWebsite: true }))
-    setCurrentPage('url')
-  }
+  const pages = [
+    'landing', 'website', 'name', 'email', 'companyName', 
+    'monthlyRevenue', 'companyDescription', 'employeeCount', 'location', 
+    'industry', 'businessModel', 'acquisitionChannels', 'competitors'
+  ];
 
-  const handleNoWebsite = () => {
-    setFormData(prev => ({ ...prev, hasWebsite: false, companyUrl: '' }))
-    setCurrentPage('name')
-  }
+  const getCurrentQuestion = () => {
+    const questions = {
+      website: 'Website URL',
+      name: 'Your Name',
+      email: 'Email Address',
+      companyName: 'Company Name',
+      monthlyRevenue: 'Monthly Revenue',
+      companyDescription: 'Company Description',
+      employeeCount: 'Employee Count',
+      location: 'Company Location',
+      industry: 'Industry',
+      businessModel: 'Business Model',
+      acquisitionChannels: 'Acquisition Channels',
+      competitors: 'Main Competitors'
+    };
+    return questions[currentPage] || '';
+  };
 
-  const handleUrlContinue = (url: string) => {
-    setFormData(prev => ({ ...prev, companyUrl: url }))
-    setCurrentPage('name')
-  }
-
-  const handleNameContinue = (name: string) => {
-    setFormData(prev => ({ ...prev, name }))
-    setCurrentPage('email')
-  }
-
-  const handleEmailContinue = (email: string) => {
-    setFormData(prev => ({ ...prev, email }))
-    setCurrentPage('companyName')
-  }
-
-  const handleCompanyNameContinue = (companyName: string) => {
-    setFormData(prev => ({ ...prev, companyName }))
-    setCurrentPage('revenue')
-  }
-
-  const handleRevenueContinue = (revenue: string) => {
-    setFormData(prev => ({ ...prev, monthlyRevenue: revenue }))
-    setCurrentPage('employees')
-  }
-
-  const handleEmployeesContinue = (count: string) => {
-    setFormData(prev => ({ ...prev, employeeCount: count }))
-    setCurrentPage('location')
-  }
-
-  const handleLocationContinue = (location: { country: string, state: string, city: string }) => {
-    setFormData(prev => ({ ...prev, country: location.country, state: location.state, city: location.city }))
-    setCurrentPage('industry')
-  }
-
-  const handleIndustryContinue = (industry: string) => {
-    setFormData(prev => ({ ...prev, industry }))
-    setCurrentPage('businessModel')
-  }
-
-  const handleBusinessModelContinue = (model: string) => {
-    setFormData(prev => ({ ...prev, businessModel: model }))
-    setCurrentPage('situation')
-  }
-
-  const handleSituationContinue = (situation: string) => {
-    setFormData(prev => ({ ...prev, currentSituation: situation }))
-    setCurrentPage('channels')
-  }
-
-  const handleChannelsContinue = (channels: string) => {
-    setFormData(prev => ({ ...prev, acquisitionChannels: channels }))
-    setCurrentPage('competitors')
-  }
-
-  const handleCompetitorsContinue = (competitors: string) => {
-    const finalData = {
-      ...formData,
-      competitors
-    }
+  const handleNext = (value) => {
+    const newResponse = {
+      question: getCurrentQuestion(),
+      answer: value || currentInput || selectedEmployees || selectedBusinessModel || locationInputs || selectedChannels
+    };
+    setResponses([...responses, newResponse]);
+    setCurrentInput('');
     
-    // Process the form data to match the required format
+    const currentIndex = pages.indexOf(currentPage);
+    if (currentIndex < pages.length - 1) {
+      setCurrentPage(pages[currentIndex + 1]);
+    }
+  };
+
+  const handleBack = () => {
+    const currentIndex = pages.indexOf(currentPage);
+    if (currentIndex > 0) {
+      setCurrentPage(pages[currentIndex - 1]);
+      setResponses(prev => prev.slice(0, -1));
+    }
+  };
+
+  const getEmployeeCount = (selection) => {
+    const countMap = {
+      'Just Me': 1,
+      '1-10': 5,
+      '10-60': 35,
+      '60-200': 130,
+      '200+': 500
+    };
+    return countMap[selection] || 0;
+  };
+
+  const handleStartAudit = () => {
+    const finalResponse = {
+      question: getCurrentQuestion(),
+      answer: currentInput
+    };
+    const allResponses = [...responses, finalResponse];
+    setResponses(allResponses);
+    
+    const responseMap = {};
+    allResponses.forEach(response => {
+      const key = response.question.toLowerCase().replace(/\s+/g, '');
+      responseMap[key] = response.answer;
+    });
+
     const processedData = {
-      name: finalData.companyName,
-      month_revenue: parseInt(finalData.monthlyRevenue) || 0,
-      employee_count: parseInt(finalData.employeeCount) || 0,
-      country: finalData.country,
-      state_ac: finalData.state,
-      city: finalData.city,
-      industry: finalData.industry.split(',').map(i => i.trim()).filter(i => i),
-      business_model: finalData.businessModel.split(',').map(b => b.trim()).filter(b => b),
-      current_situation: finalData.currentSituation,
-      "Social Media": {
-        "Twitter": `https://twitter.com/${finalData.companyName.replace(/\s+/g, '')}`,
-        "Facebook": `https://www.facebook.com/${finalData.companyName.replace(/\s+/g, '')}`,
-        "LinkedIn": `https://www.linkedin.com/company/${finalData.companyName.toLowerCase().replace(/\s+/g, '-')}`
+      name: responseMap.companyname || '',
+      month_revenue: parseInt(responseMap.monthlyrevenue?.replace(/[^\d]/g, '')) || 0,
+      employee_count: getEmployeeCount(responseMap.employeecount),
+      country: responseMap.companylocation?.country || '',
+      state_ac: responseMap.companylocation?.state || '',
+      city: responseMap.companylocation?.city || '',
+      industry: typeof responseMap.industry === 'string' ? responseMap.industry.split(',').map(item => item.trim()).filter(Boolean) : [responseMap.industry],
+      business_model: [responseMap.businessmodel || ''],
+      current_situation: responseMap.companydescription || '',
+      Social_Media: {
+        Twitter: "",
+        Facebook: "",
+        LinkedIn: ""
       },
-      "Acquisition Channels": finalData.acquisitionChannels.split(',').map(a => a.trim()).filter(a => a),
-      "Competitors": competitors.split(',').map(c => c.trim()).filter(c => c).map(comp => ({
-        name: comp,
-        website: `https://www.${comp.toLowerCase().replace(/\s+/g, '')}.com`
-      }))
-    }
-    
-    console.log('Final processed data:', processedData)
-    // Here you would typically submit the form or proceed to the audit results
-  }
+      Acquisition_Channels: Array.isArray(responseMap.acquisitionchannels) ? responseMap.acquisitionchannels : [],
+      Competitors: typeof responseMap.maincompetitors === 'string' ? responseMap.maincompetitors.split(',').map(item => item.trim()).filter(Boolean).map(name => ({
+        name: name,
+        website: `https://www.${name.toLowerCase().replace(/\s+/g, '')}.com`
+      })) : []
+    };
 
-  return (
-    <>
-      {currentPage === 'landing' && (
-        <LandingPage 
-          onContinue={handleLandingContinue}
-          onNoWebsite={handleNoWebsite}
+    console.log('All Responses:', allResponses);
+    console.log('Processed Data:', [processedData]);
+    alert('Audit started! Check console for data.');
+  };
+
+  const handleChannelToggle = (channel) => {
+    setSelectedChannels(prev => 
+      prev.includes(channel) 
+        ? prev.filter(c => c !== channel)
+        : [...prev, channel]
+    );
+  };
+
+  const handleLocationChange = (field, value) => {
+    setLocationInputs(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  switch (currentPage) {
+    case 'landing':
+      return <LandingPage onNext={() => handleNext()} />;
+    
+    case 'website':
+      return (
+        <WebsitePage 
+          value={currentInput}
+          onChange={setCurrentInput}
+          onNext={() => handleNext(currentInput)}
+          onBack={handleBack}
         />
-      )}
-      {currentPage === 'url' && (
-        <WebsiteUrlPage 
-          onBack={() => setCurrentPage('landing')}
-          onContinue={handleUrlContinue}
-        />
-      )}
-      {currentPage === 'name' && (
+      );
+    
+    case 'name':
+      return (
         <NamePage 
-          onBack={() => setCurrentPage(formData.hasWebsite ? 'url' : 'landing')}
-          onContinue={handleNameContinue}
+          value={currentInput}
+          onChange={setCurrentInput}
+          onNext={() => handleNext(currentInput)}
+          onBack={handleBack}
         />
-      )}
-      {currentPage === 'email' && (
+      );
+    
+    case 'email':
+      return (
         <EmailPage 
-          onBack={() => setCurrentPage('name')}
-          onContinue={handleEmailContinue}
+          value={currentInput}
+          onChange={setCurrentInput}
+          onNext={() => handleNext(currentInput)}
+          onBack={handleBack}
         />
-      )}
-      {currentPage === 'companyName' && (
-        <CompanyDetailsPage 
-          onBack={() => setCurrentPage('email')}
-          onContinue={handleCompanyNameContinue}
+      );
+    
+    case 'companyName':
+      return (
+        <CompanyNamePage 
+          value={currentInput}
+          onChange={setCurrentInput}
+          onNext={() => handleNext(currentInput)}
+          onBack={handleBack}
         />
-      )}
-      {currentPage === 'revenue' && (
+      );
+    
+    case 'monthlyRevenue':
+      return (
         <MonthlyRevenuePage 
-          onBack={() => setCurrentPage('companyName')}
-          onContinue={handleRevenueContinue}
+          value={currentInput}
+          currency={currency}
+          onChange={setCurrentInput}
+          onCurrencyChange={setCurrency}
+          onNext={() => handleNext(`${currency} ${currentInput}`)}
+          onBack={handleBack}
         />
-      )}
-      {currentPage === 'employees' && (
+      );
+    
+    case 'companyDescription':
+      return (
+        <CompanyDescriptionPage 
+          value={currentInput}
+          onChange={setCurrentInput}
+          onNext={() => handleNext(currentInput)}
+          onBack={handleBack}
+        />
+      );
+    
+    case 'employeeCount':
+      return (
         <EmployeeCountPage 
-          onBack={() => setCurrentPage('revenue')}
-          onContinue={handleEmployeesContinue}
+          selectedEmployees={selectedEmployees}
+          onSelect={setSelectedEmployees}
+          onNext={() => handleNext(selectedEmployees)}
+          onBack={handleBack}
         />
-      )}
-      {currentPage === 'location' && (
+      );
+    
+    case 'location':
+      return (
         <LocationPage 
-          onBack={() => setCurrentPage('employees')}
-          onContinue={handleLocationContinue}
+          locationInputs={locationInputs}
+          onChange={handleLocationChange}
+          onNext={() => handleNext(locationInputs)}
+          onBack={handleBack}
         />
-      )}
-      {currentPage === 'industry' && (
+      );
+    
+    case 'industry':
+      return (
         <IndustryPage 
-          onBack={() => setCurrentPage('location')}
-          onContinue={handleIndustryContinue}
+          value={currentInput}
+          onChange={setCurrentInput}
+          onNext={() => handleNext(currentInput)}
+          onBack={handleBack}
         />
-      )}
-      {currentPage === 'businessModel' && (
+      );
+    
+    case 'businessModel':
+      return (
         <BusinessModelPage 
-          onBack={() => setCurrentPage('industry')}
-          onContinue={handleBusinessModelContinue}
+          selectedBusinessModel={selectedBusinessModel}
+          onSelect={setSelectedBusinessModel}
+          onNext={() => handleNext(selectedBusinessModel)}
+          onBack={handleBack}
         />
-      )}
-      {currentPage === 'situation' && (
-        <CurrentSituationPage 
-          onBack={() => setCurrentPage('businessModel')}
-          onContinue={handleSituationContinue}
-        />
-      )}
-      {currentPage === 'channels' && (
+      );
+    
+    case 'acquisitionChannels':
+      return (
         <AcquisitionChannelsPage 
-          onBack={() => setCurrentPage('situation')}
-          onContinue={handleChannelsContinue}
+          selectedChannels={selectedChannels}
+          onToggle={handleChannelToggle}
+          onNext={() => handleNext(selectedChannels)}
+          onBack={handleBack}
         />
-      )}
-      {currentPage === 'competitors' && (
+      );
+    
+    case 'competitors':
+      return (
         <CompetitorsPage 
-          onBack={() => setCurrentPage('channels')}
-          onContinue={handleCompetitorsContinue}
+          value={currentInput}
+          onChange={setCurrentInput}
+          onStartAudit={handleStartAudit}
+          onBack={handleBack}
         />
-      )}
-    </>
-  )
+      );
+    
+    default:
+      return null;
+  }
 }
+
+export default App;
