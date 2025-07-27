@@ -927,63 +927,8 @@ function CurrentSituationPage({ onBack, onContinue }: { onBack: () => void, onCo
         <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
-  // Loading page while waiting for API response
-  if (currentPage === 'loading') {
-    return (
-      <div className="min-h-screen bg-black text-white flex flex-col">
-        <div className="flex-1 flex items-center justify-center px-4">
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="mb-8">
-              <div className="h-16 w-16 mx-auto mb-6 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">Analyzing your website...</h2>
-              <p className="text-gray-400 text-lg">
-                {isLoadingApiData ? 'We\'re gathering information about your company' : 
-                 apiError ? 'Something went wrong, but you can continue manually' :
-                 'Analysis complete! Preparing your personalized form...'}
-              </p>
-            </div>
-            
-            {apiError && (
-              <div className="space-y-6">
-                <div className="bg-red-900/20 border border-red-500/30 rounded-xl p-4">
-                  <p className="text-red-400 text-sm">Error: {apiError}</p>
-                </div>
-                <div className="flex gap-4 justify-center">
-                  <Button 
-                    onClick={() => fetchEnterpriseInfo(websiteUrl)}
-                    variant="outline"
-                    size="lg"
-                    className="border-gray-600 text-gray-300 hover:bg-gray-800"
-                  >
-                    Retry
-                  </Button>
-                  <Button 
-                    onClick={() => setCurrentPage('companyName')}
-                    size="lg"
-                    className="bg-blue-600 hover:bg-blue-700 px-8"
-                  >
-                    Continue Manually
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  }
         <div className="absolute inset-0 opacity-[0.02]">
           <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
-    const initialValue = getInitialCompanyName();
-    
-    // Set initial value if not already set and we have API data
-    React.useEffect(() => {
-      if (initialValue && !currentInput) {
-        setCurrentInput(initialValue);
-      }
-    }, [initialValue]);
-    
         </div>
       </div>
 
@@ -991,9 +936,7 @@ function CurrentSituationPage({ onBack, onContinue }: { onBack: () => void, onCo
       <div className="relative z-10">
         {/* Back Button */}
         <div className="absolute top-6 left-4 sm:left-6">
-              <p className="text-gray-400 text-lg">
-                {initialValue ? 'We found this information - you can edit it if needed' : 'Tell us about your business'}
-              </p>
+          <button
             onClick={onBack}
             className="text-white hover:text-purple-300 transition-all duration-300 px-4 py-2"
           >
@@ -1034,15 +977,6 @@ function CurrentSituationPage({ onBack, onContinue }: { onBack: () => void, onCo
                 
                 <RainbowButton 
                   type="submit"
-    const initialValue = getInitialRevenue();
-    
-    // Set initial value if not already set and we have API data
-    React.useEffect(() => {
-      if (initialValue && !currentInput) {
-        setCurrentInput(initialValue.toString());
-      }
-    }, [initialValue]);
-    
                   className="w-full h-12 text-base sm:text-lg font-semibold"
                 >
                   Continue
@@ -1050,9 +984,7 @@ function CurrentSituationPage({ onBack, onContinue }: { onBack: () => void, onCo
               </form>
             </div>
           </div>
-              <p className="text-gray-400 text-lg">
-                {initialValue ? 'We found this information - you can edit it if needed' : 'This helps us understand your business scale'}
-              </p>
+        </main>
       </div>
     </div>
   )
@@ -1109,15 +1041,6 @@ function AcquisitionChannelsPage({ onBack, onContinue }: { onBack: () => void, o
                 What are your acquisition channels?
               </h1>
               <p className="text-white/60 text-sm sm:text-base mb-8">
-    const initialValue = getInitialDescription();
-    
-    // Set initial value if not already set and we have API data
-    React.useEffect(() => {
-      if (initialValue && !currentInput) {
-        setCurrentInput(initialValue);
-      }
-    }, [initialValue]);
-    
                 How do you currently acquire customers? (separate with commas)
               </p>
             </div>
@@ -1125,9 +1048,7 @@ function AcquisitionChannelsPage({ onBack, onContinue }: { onBack: () => void, o
             <div
               className={`transition-all duration-1000 delay-500 ${
                 isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              <p className="text-gray-400 text-lg">
-                {initialValue ? 'We found this information - you can edit it if needed' : 'Very briefly, what\'s your main business?'}
-              </p>
+              }`}
             >
               <form onSubmit={handleSubmit} className="space-y-6">
                 <input
@@ -1168,15 +1089,6 @@ function CompetitorsPage({ onBack, onContinue }: { onBack: () => void, onContinu
       onContinue(competitors)
     }
   }
-    const initialValue = getInitialEmployeeCount();
-    
-    // Set initial value if not already set and we have API data
-    React.useEffect(() => {
-      if (initialValue && !selectedEmployees) {
-        setSelectedEmployees(initialValue);
-      }
-    }, [initialValue]);
-    
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-black dark">
@@ -1184,9 +1096,7 @@ function CompetitorsPage({ onBack, onContinue }: { onBack: () => void, onContinu
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
-              <p className="text-gray-400 text-lg">
-                {initialValue ? 'We found this information - you can edit it if needed' : 'Select your company size'}
-              </p>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
         <div className="absolute inset-0 opacity-[0.02]">
           <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
         </div>
@@ -1221,7 +1131,7 @@ function CompetitorsPage({ onBack, onContinue }: { onBack: () => void, onContinu
             </div>
 
             <div
-              className={`transition-all duration-1000 delay-500 ${
+              className={\`transition-all duration-1000 delay-500 ${
                 isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
             >
@@ -1234,15 +1144,6 @@ function CompetitorsPage({ onBack, onContinue }: { onBack: () => void, onContinu
                   className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
                   required
                 />
-    const initialLocation = getInitialLocation();
-    
-    // Set initial values if not already set and we have API data
-    React.useEffect(() => {
-      if (initialLocation.city && !locationInputs.city) {
-        setLocationInputs(initialLocation);
-      }
-    }, [initialLocation]);
-    
                 
                 <RainbowButton 
                   type="submit"
@@ -1250,9 +1151,7 @@ function CompetitorsPage({ onBack, onContinue }: { onBack: () => void, onContinu
                 >
                   Start My Audit
                 </RainbowButton>
-              <p className="text-gray-400 text-lg">
-                {initialLocation.city ? 'We found this information - you can edit it if needed' : 'Tell us your business location'}
-              </p>
+              </form>
             </div>
           </div>
         </main>
@@ -1262,7 +1161,7 @@ function CompetitorsPage({ onBack, onContinue }: { onBack: () => void, onContinu
 }
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<'landing' | 'url' | 'name' | 'email' | 'companyName' | 'revenue' | 'employees' | 'location' | 'industry' | 'businessModel' | 'situation' | 'channels' | 'competitors'>('landing')
+  const [currentPage, setCurrentPage] = useState<'landing' | 'url' | 'name' | 'email' | 'companyName' | 'revenue' | 'employees' | 'location' | 'industry' | 'businessModel' | 'situation' | 'channels' | 'competitors' | 'loading'>('landing')
   const [formData, setFormData] = useState({
     hasWebsite: true,
     companyUrl: '',
@@ -1277,17 +1176,20 @@ export default function App() {
     industry: '',
     businessModel: '',
     currentSituation: '',
+    acquisitionChannels: '',
+    competitors: ''
+  })
   
   // API integration states
-  const [apiData, setApiData] = useState(null);
-  const [isLoadingApiData, setIsLoadingApiData] = useState(false);
-  const [apiError, setApiError] = useState(null);
-  const [websiteUrl, setWebsiteUrl] = useState('');
-    acquisitionChannels: '',
+  const [apiData, setApiData] = useState(null)
+  const [isLoadingApiData, setIsLoadingApiData] = useState(false)
+  const [apiError, setApiError] = useState(null)
+  const [websiteUrl, setWebsiteUrl] = useState('')
+  
   // Fetch enterprise info from API
-  const fetchEnterpriseInfo = async (website) => {
-    setIsLoadingApiData(true);
-    setApiError(null);
+  const fetchEnterpriseInfo = async (website: string) => {
+    setIsLoadingApiData(true)
+    setApiError(null)
     
     try {
       const response = await fetch('https://apivftomc-n8n-test-videos.aacepg.easypanel.host/webhook/getEnterpriseInfo', {
@@ -1296,58 +1198,63 @@ export default function App() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ website }),
-      });
+      })
       
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(\`HTTP error! status: ${response.status}`)
       }
       
-      const data = await response.json();
-      console.log('API Response:', data);
+      const data = await response.json()
+      console.log('API Response:', data)
       
       if (data && data.length > 0) {
-        setApiData(data[0]); // Take the first item from the array
+        setApiData(data[0]) // Take the first item from the array
       } else {
-        throw new Error('No data received from API');
+        throw new Error('No data received from API')
       }
-    } catch (error) {
-      console.error('Error fetching enterprise info:', error);
-      setApiError(error.message);
+    } catch (error: any) {
+      console.error('Error fetching enterprise info:', error)
+      setApiError(error.message)
     } finally {
-      setIsLoadingApiData(false);
+      setIsLoadingApiData(false)
     }
-  };
+  }
 
   // Auto-advance after API call completes
   useEffect(() => {
     if (!isLoadingApiData && currentPage === 'loading' && (apiData || apiError)) {
       // Wait a moment then advance to next page
       setTimeout(() => {
-        setCurrentPage('companyName');
-      }, 1000);
+        setCurrentPage('companyName')
+      }, 1000)
     }
-  }, [isLoadingApiData, apiData, apiError, currentPage]);
-    competitors: ''
-  })
-    const initialValue = getInitialIndustry();
-    
-    // Set initial value if not already set and we have API data
-    React.useEffect(() => {
-      if (initialValue && !currentInput) {
-        setCurrentInput(initialValue);
-      }
-    }, [initialValue]);
-    
-    // Special handling for website page
-    if (currentPage === 'website') {
-      setWebsiteUrl(value || currentInput);
-      fetchEnterpriseInfo(value || currentInput);
-    }
-    
+  }, [isLoadingApiData, apiData, apiError, currentPage])
 
-              <p className="text-gray-400 text-lg">
-                {initialValue ? 'We found this information - you can edit it if needed' : 'Tell us about your business sector'}
-              </p>
+  // Helper functions to get initial values from API data
+  const getInitialCompanyName = () => apiData?.name || ''
+  const getInitialRevenue = () => apiData?.month_revenue || ''
+  const getInitialDescription = () => apiData?.current_situation || ''
+  const getInitialEmployeeCount = () => {
+    if (!apiData?.employee_count) return ''
+    const count = apiData.employee_count
+    if (count === 1) return 'Just Me'
+    if (count <= 10) return '1-10'
+    if (count <= 60) return '10-60'
+    if (count <= 200) return '60-200'
+    return '200+'
+  }
+  const getInitialLocation = () => ({
+    city: apiData?.city || '',
+    state: apiData?.state_ac || '',
+    country: apiData?.country || ''
+  })
+  const getInitialIndustry = () => apiData?.industry ? apiData.industry.join(', ') : ''
+  const getInitialBusinessModel = () => apiData?.business_model?.[0] || ''
+  const getInitialChannels = () => apiData?.['Acquisition Channels'] || []
+  const getInitialCompetitors = () => apiData?.Competitors ? 
+    apiData.Competitors.map((comp: any) => comp.name).join(', ') : ''
+
+  const handleLandingContinue = () => {
     setFormData(prev => ({ ...prev, hasWebsite: true }))
     setCurrentPage('url')
   }
@@ -1359,7 +1266,9 @@ export default function App() {
 
   const handleUrlContinue = (url: string) => {
     setFormData(prev => ({ ...prev, companyUrl: url }))
-    setCurrentPage('name')
+    setWebsiteUrl(url)
+    fetchEnterpriseInfo(url)
+    setCurrentPage('loading')
   }
 
   const handleNameContinue = (name: string) => {
@@ -1373,11 +1282,7 @@ export default function App() {
   }
 
   const handleCompanyNameContinue = (companyName: string) => {
-    
-    // Special flow after email - go to loading page
-    if (currentPage === 'email') {
-      setCurrentPage('loading');
-    } else if (currentIndex < pages.length - 1) {
+    setFormData(prev => ({ ...prev, companyName }))
     setCurrentPage('revenue')
   }
 
@@ -1388,25 +1293,10 @@ export default function App() {
 
   const handleEmployeesContinue = (count: string) => {
     setFormData(prev => ({ ...prev, employeeCount: count }))
-    const initialValue = getInitialBusinessModel();
-    
-    // Set initial value if not already set and we have API data
-    React.useEffect(() => {
-      if (initialValue && !selectedBusinessModel) {
-        setSelectedBusinessModel(initialValue);
-      }
-    }, [initialValue]);
-    
     setCurrentPage('location')
   }
-      // Skip loading page when going back
-      const previousPage = currentPage === 'companyName' && pages[currentIndex - 1] === 'loading' 
-        ? 'email' 
-        : pages[currentIndex - 1];
-      setCurrentPage(previousPage);
-              <p className="text-gray-400 text-lg">
-                {initialValue ? 'We found this information - you can edit it if needed' : 'How do you serve your customers?'}
-              </p>
+
+  const handleLocationContinue = (location: { country: string, state: string, city: string }) => {
     setFormData(prev => ({ ...prev, country: location.country, state: location.state, city: location.city }))
     setCurrentPage('industry')
   }
@@ -1429,40 +1319,8 @@ export default function App() {
   const handleChannelsContinue = (channels: string) => {
     setFormData(prev => ({ ...prev, acquisitionChannels: channels }))
     setCurrentPage('competitors')
-  // Helper functions to get initial values from API data
-  const getInitialCompanyName = () => apiData?.name || '';
-  const getInitialRevenue = () => apiData?.month_revenue || '';
-  const getInitialDescription = () => apiData?.current_situation || '';
-  const getInitialEmployeeCount = () => {
-    if (!apiData?.employee_count) return '';
-    const count = apiData.employee_count;
-    if (count === 1) return 'Just Me';
-    if (count <= 10) return '1-10';
-    if (count <= 60) return '10-60';
-    if (count <= 200) return '60-200';
-    return '200+';
-  };
-  const getInitialLocation = () => ({
-    city: apiData?.city || '',
-    state: apiData?.state_ac || '',
-    country: apiData?.country || ''
-  });
-  const getInitialIndustry = () => apiData?.industry ? apiData.industry.join(', ') : '';
-  const getInitialBusinessModel = () => apiData?.business_model?.[0] || '';
-  const getInitialChannels = () => apiData?.['Acquisition Channels'] || [];
-  const getInitialCompetitors = () => apiData?.Competitors ? 
-    apiData.Competitors.map(comp => comp.name).join(', ') : '';
   }
 
-    const initialChannels = getInitialChannels();
-    
-    // Set initial values if not already set and we have API data
-    React.useEffect(() => {
-      if (initialChannels.length > 0 && selectedChannels.length === 0) {
-        setSelectedChannels(initialChannels);
-      }
-    }, [initialChannels]);
-    
   const handleCompetitorsContinue = (competitors: string) => {
     const finalData = {
       ...formData,
@@ -1470,9 +1328,7 @@ export default function App() {
     }
     
     // Process the form data to match the required format
-              <p className="text-gray-400 text-lg">
-                {initialChannels.length > 0 ? 'We found this information - you can edit it if needed' : 'How do you currently get customers? (Select all that apply)'}
-              </p>
+    const processedData = {
       name: finalData.companyName,
       month_revenue: parseInt(finalData.monthlyRevenue) || 0,
       employee_count: parseInt(finalData.employeeCount) || 0,
@@ -1483,20 +1339,63 @@ export default function App() {
       business_model: finalData.businessModel.split(',').map(b => b.trim()).filter(b => b),
       current_situation: finalData.currentSituation,
       "Social Media": {
-        "Twitter": `https://twitter.com/${finalData.companyName.replace(/\s+/g, '')}`,
-        "Facebook": `https://www.facebook.com/${finalData.companyName.replace(/\s+/g, '')}`,
-        "LinkedIn": `https://www.linkedin.com/company/${finalData.companyName.toLowerCase().replace(/\s+/g, '-')}`
+        "Twitter": \`https://twitter.com/${finalData.companyName.replace(/\s+/g, '')}`,
+        "Facebook": \`https://www.facebook.com/${finalData.companyName.replace(/\s+/g, '')}`,
+        "LinkedIn": \`https://www.linkedin.com/company/${finalData.companyName.toLowerCase().replace(/\s+/g, '-')}`
       },
       "Acquisition Channels": finalData.acquisitionChannels.split(',').map(a => a.trim()).filter(a => a),
       "Competitors": competitors.split(',').map(c => c.trim()).filter(c => c).map(comp => ({
         name: comp,
-        website: `https://www.${comp.toLowerCase().replace(/\s+/g, '')}.com`
+        website: \`https://www.${comp.toLowerCase().replace(/\s+/g, '')}.com`
       }))
     }
     
     console.log('Final processed data:', processedData)
-    console.log('API Data:', apiData);
+    console.log('API Data:', apiData)
     // Here you would typically submit the form or proceed to the audit results
+  }
+
+  // Loading page while waiting for API response
+  if (currentPage === 'loading') {
+    return (
+      <div className="min-h-screen bg-black text-white flex flex-col">
+        <div className="flex-1 flex items-center justify-center px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="mb-8">
+              <div className="h-16 w-16 mx-auto mb-6 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">Analyzing your website...</h2>
+              <p className="text-gray-400 text-lg">
+                {isLoadingApiData ? 'We\'re gathering information about your company' : 
+                 apiError ? 'Something went wrong, but you can continue manually' :
+                 'Analysis complete! Preparing your personalized form...'}
+              </p>
+            </div>
+            
+            {apiError && (
+              <div className="space-y-6">
+                <div className="bg-red-900/20 border border-red-500/30 rounded-xl p-4">
+                  <p className="text-red-400 text-sm">Error: {apiError}</p>
+                </div>
+                <div className="flex gap-4 justify-center">
+                  <button 
+                    onClick={() => fetchEnterpriseInfo(websiteUrl)}
+                    className="border border-gray-600 text-gray-300 hover:bg-gray-800 px-6 py-2 rounded"
+                  >
+                    Retry
+                  </button>
+                  <button 
+                    onClick={() => setCurrentPage('companyName')}
+                    className="bg-blue-600 hover:bg-blue-700 px-8 py-2 rounded"
+                  >
+                    Continue Manually
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -1533,15 +1432,6 @@ export default function App() {
       )}
       {currentPage === 'revenue' && (
         <MonthlyRevenuePage 
-    const initialValue = getInitialCompetitors();
-    
-    // Set initial value if not already set and we have API data
-    React.useEffect(() => {
-      if (initialValue && !currentInput) {
-        setCurrentInput(initialValue);
-      }
-    }, [initialValue]);
-    
           onBack={() => setCurrentPage('companyName')}
           onContinue={handleRevenueContinue}
         />
@@ -1549,9 +1439,7 @@ export default function App() {
       {currentPage === 'employees' && (
         <EmployeeCountPage 
           onBack={() => setCurrentPage('revenue')}
-              <p className="text-gray-400 text-lg">
-                {initialValue ? 'We found this information - you can edit it if needed' : 'List your top competitors (comma-separated)'}
-              </p>
+          onContinue={handleEmployeesContinue}
         />
       )}
       {currentPage === 'location' && (
