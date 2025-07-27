@@ -14,10 +14,9 @@ export function LandingPage({ onStart }: LandingPageProps) {
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
-      <div className="relative">
-        {/* Main Content */}
-        <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 text-center">
+        <div className="flex-1 flex items-center justify-center px-4">
           <div className="max-w-6xl mx-auto">
+            <div className="text-center">
             {/* Main Heading */}
             <div className="space-y-4">
               <div
@@ -52,9 +51,9 @@ export function LandingPage({ onStart }: LandingPageProps) {
                 Start
               </RainbowButton>
             </div>
+            </div>
           </div>
-        </main>
-      </div>
+        </div>
     </div>
   );
 }
