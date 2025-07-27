@@ -82,26 +82,12 @@ function LandingPage({ onContinue, onNoWebsite }: { onContinue: () => void, onNo
                 isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
             >
-              <div className="space-y-6">
-                <p className="block text-white/80 text-base sm:text-lg font-light mb-6 text-center">
-                  Let's get started with your audit
-                </p>
-                <div className="space-y-4">
-                  <RainbowButton 
-                    onClick={onContinue}
-                    className="w-full h-12 text-base sm:text-lg font-semibold"
-                  >
-                    I Have A Website
-                  </RainbowButton>
-                  
-                  <button
-                    onClick={onNoWebsite}
-                    className="w-full text-purple-400 hover:text-purple-300 underline underline-offset-4 transition-colors duration-300 text-sm sm:text-base py-2"
-                  >
-                    I DON'T HAVE A WEBSITE
-                  </button>
-                </div>
-              </div>
+              <RainbowButton 
+                onClick={onContinue}
+                className="w-full h-12 text-base sm:text-lg font-semibold"
+              >
+                Start
+              </RainbowButton>
             </div>
           </div>
         </main>
