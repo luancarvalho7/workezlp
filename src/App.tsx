@@ -1,6 +1,100 @@
 import { RainbowButton } from "./components/ui/rainbow-button"
 import { useEffect, useState } from "react"
-import { LandingPage } from './components/LandingPage';
+
+function LandingPage({ onContinue, onNoWebsite }: { onContinue: () => void, onNoWebsite: () => void }) {
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    setIsLoaded(true)
+  }, [])
+
+  return (
+    <div className="min-h-screen relative overflow-hidden bg-black dark">
+      {/* Animated Background Pattern */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
+        
+        {/* Floating Orbs */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
+        
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
+        </div>
+        
+        {/* Animated Lines */}
+        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 800">
+          <defs>
+            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgba(168,85,247,0)" />
+              <stop offset="50%" stopColor="rgba(168,85,247,0.3)" />
+              <stop offset="100%" stopColor="rgba(168,85,247,0)" />
+            </linearGradient>
+          </defs>
+
+          <path
+            d="M0 300 Q300 250 600 300 T1200 300"
+            stroke="url(#lineGradient)"
+            strokeWidth="1"
+            fill="none"
+            className="animate-pulse"
+          />
+          <path
+            d="M0 500 Q300 450 600 500 T1200 500"
+            stroke="url(#lineGradient)"
+            strokeWidth="1"
+            fill="none"
+            className="animate-pulse delay-500"
+          />
+        </svg>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Main Content */}
+        <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 text-center">
+          <div className="max-w-6xl mx-auto">
+            {/* Main Heading */}
+            <div className="space-y-4">
+              <div
+                className={`transition-all duration-1000 delay-300 ${
+                  isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                }`}
+              >
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light leading-[0.9] tracking-tight text-white max-w-[1000px] mx-auto px-4">
+                  The 5 Minute{" "}{" "}
+                  <span className="bg-gradient-to-b from-yellow-300 via-yellow-400 to-amber-500 bg-clip-text text-transparent font-cormorant italic scale-[1.3] inline-block mx-8">
+                    AI Growth
+                  </span>{" "}{" "}
+                  Audit
+                  <br />
+                  <span className="scale-[0.83] inline-block">That See What Works, What Fails</span>
+                  <br />
+                  <span className="scale-[0.83] inline-block">What to Do Next</span>
+                </h1>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div
+              className={`mt-12 sm:mt-16 max-w-sm sm:max-w-md mx-auto px-4 transition-all duration-1000 delay-500 ${
+                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
+              <RainbowButton 
+                onClick={onContinue}
+                className="w-full h-12 text-base sm:text-lg font-semibold"
+              >
+                Start
+              </RainbowButton>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  )
+}
 
 function WebsiteUrlPage({ onBack, onContinue }: { onBack: () => void, onContinue: (url: string) => void }) {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -1187,7 +1281,10 @@ export default function App() {
   return (
     <>
       {currentPage === 'landing' && (
-        <LandingPage onStart={handleLandingContinue} />
+        <LandingPage 
+          onContinue={handleLandingContinue}
+          onNoWebsite={handleNoWebsite}
+        />
       )}
       {currentPage === 'url' && (
         <WebsiteUrlPage 
