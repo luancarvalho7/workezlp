@@ -373,6 +373,206 @@ function EmailPage({ onBack, onContinue }: { onBack: () => void, onContinue: (em
                   type="submit"
                   className="w-full h-12 text-base sm:text-lg font-semibold"
                 >
+                  Continue
+                </RainbowButton>
+              </form>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  )
+}
+
+function CompanyDetailsPage({ onBack, onContinue }: { onBack: () => void, onContinue: (data: any) => void }) {
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [formData, setFormData] = useState({
+    companyName: '',
+    monthlyRevenue: '',
+    employeeCount: '',
+    country: '',
+    state: '',
+    city: '',
+    industry: '',
+    businessModel: '',
+    currentSituation: '',
+    acquisitionChannels: '',
+    competitors: ''
+  })
+
+  useEffect(() => {
+    setIsLoaded(true)
+  }, [])
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }))
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    // Process the form data to match the required format
+    const processedData = {
+      name: formData.companyName,
+      month_revenue: parseInt(formData.monthlyRevenue) || 0,
+      employee_count: parseInt(formData.employeeCount) || 0,
+      country: formData.country,
+      state_ac: formData.state,
+      city: formData.city,
+      industry: formData.industry.split(',').map(i => i.trim()).filter(i => i),
+      business_model: formData.businessModel.split(',').map(b => b.trim()).filter(b => b),
+      current_situation: formData.currentSituation,
+      acquisition_channels: formData.acquisitionChannels.split(',').map(a => a.trim()).filter(a => a),
+      competitors: formData.competitors.split(',').map(c => c.trim()).filter(c => c).map(comp => ({
+        name: comp,
+        website: `https://www.${comp.toLowerCase().replace(/\s+/g, '')}.com`
+      }))
+    }
+    
+    onContinue(processedData)
+  }
+
+  return (
+    <div className="min-h-screen relative overflow-hidden bg-black dark">
+      {/* Background */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black to-black/10" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="h-full w-full bg-[linear-gradient(rgba(168,85,247,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Back Button */}
+        <div className="absolute top-6 left-4 sm:left-6">
+          <button
+            onClick={onBack}
+            className="text-white hover:text-purple-300 transition-all duration-300 px-4 py-2"
+          >
+            ← Back
+          </button>
+        </div>
+
+        {/* Main Content */}
+        <main className="flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 py-12">
+          <div className="max-w-2xl mx-auto w-full">
+            <div
+              className={`text-center mb-8 transition-all duration-1000 delay-300 ${
+                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-light leading-tight tracking-tight text-white mb-4">
+                Tell us about your company
+              </h1>
+              <p className="text-white/60 text-sm sm:text-base">
+                This information helps us provide a more accurate audit
+              </p>
+            </div>
+
+            <div
+              className={`transition-all duration-1000 delay-500 ${
+                isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <input
+                    type="text"
+                    placeholder="Company Name"
+                    value={formData.companyName}
+                    onChange={(e) => handleInputChange('companyName', e.target.value)}
+                    className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
+                    required
+                  />
+                  
+                  <input
+                    type="number"
+                    placeholder="Monthly Revenue ($)"
+                    value={formData.monthlyRevenue}
+                    onChange={(e) => handleInputChange('monthlyRevenue', e.target.value)}
+                    className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
+                  />
+                  
+                  <input
+                    type="number"
+                    placeholder="Employee Count"
+                    value={formData.employeeCount}
+                    onChange={(e) => handleInputChange('employeeCount', e.target.value)}
+                    className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
+                  />
+                  
+                  <input
+                    type="text"
+                    placeholder="Country"
+                    value={formData.country}
+                    onChange={(e) => handleInputChange('country', e.target.value)}
+                    className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
+                  />
+                  
+                  <input
+                    type="text"
+                    placeholder="State/Province"
+                    value={formData.state}
+                    onChange={(e) => handleInputChange('state', e.target.value)}
+                    className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
+                  />
+                  
+                  <input
+                    type="text"
+                    placeholder="City"
+                    value={formData.city}
+                    onChange={(e) => handleInputChange('city', e.target.value)}
+                    className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
+                  />
+                </div>
+                
+                <input
+                  type="text"
+                  placeholder="Industry (comma-separated)"
+                  value={formData.industry}
+                  onChange={(e) => handleInputChange('industry', e.target.value)}
+                  className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
+                />
+                
+                <input
+                  type="text"
+                  placeholder="Business Model (e.g., B2B, B2C, comma-separated)"
+                  value={formData.businessModel}
+                  onChange={(e) => handleInputChange('businessModel', e.target.value)}
+                  className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
+                />
+                
+                <textarea
+                  placeholder="Current Situation (brief description of your company)"
+                  value={formData.currentSituation}
+                  onChange={(e) => handleInputChange('currentSituation', e.target.value)}
+                  rows={4}
+                  className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300 resize-none"
+                />
+                
+                <input
+                  type="text"
+                  placeholder="Acquisition Channels (comma-separated)"
+                  value={formData.acquisitionChannels}
+                  onChange={(e) => handleInputChange('acquisitionChannels', e.target.value)}
+                  className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
+                />
+                
+                <input
+                  type="text"
+                  placeholder="Main Competitors (comma-separated)"
+                  value={formData.competitors}
+                  onChange={(e) => handleInputChange('competitors', e.target.value)}
+                  className="w-full px-4 py-3 bg-white/10 border border-purple-500/30 rounded-lg text-white placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-purple-400 focus:bg-white/15 transition-all duration-300"
+                />
+                
+                <RainbowButton 
+                  type="submit"
+                  className="w-full h-12 text-base sm:text-lg font-semibold"
+                >
                   Start My Audit
                 </RainbowButton>
               </form>
@@ -385,12 +585,13 @@ function EmailPage({ onBack, onContinue }: { onBack: () => void, onContinue: (em
 }
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<'landing' | 'url' | 'name' | 'email'>('landing')
+  const [currentPage, setCurrentPage] = useState<'landing' | 'url' | 'name' | 'email' | 'details'>('landing')
   const [formData, setFormData] = useState({
     hasWebsite: true,
     companyUrl: '',
     name: '',
-    email: ''
+    email: '',
+    companyDetails: null as any
   })
 
   const handleLandingContinue = () => {
@@ -415,8 +616,13 @@ export default function App() {
 
   const handleEmailContinue = (email: string) => {
     setFormData(prev => ({ ...prev, email }))
-    console.log('Final form data:', { ...formData, email })
-    // Here you would typically submit the form or proceed to the next step
+    setCurrentPage('details')
+  }
+
+  const handleDetailsContinue = (details: any) => {
+    setFormData(prev => ({ ...prev, companyDetails: details }))
+    console.log('Final form data:', { ...formData, companyDetails: details })
+    // Here you would typically submit the form or proceed to the audit results
   }
 
   return (
@@ -443,6 +649,12 @@ export default function App() {
         <EmailPage 
           onBack={() => setCurrentPage('name')}
           onContinue={handleEmailContinue}
+        />
+      )}
+      {currentPage === 'details' && (
+        <CompanyDetailsPage 
+          onBack={() => setCurrentPage('email')}
+          onContinue={handleDetailsContinue}
         />
       )}
     </>
